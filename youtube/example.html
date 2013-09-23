@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <title>Synload Group Video Example</title>
@@ -30,14 +30,14 @@
         		GroupVideo.userAccepted = function(){
         			alert("logged in!");
         		}
-        		$("#groupJoin").click(function(){
-            		GroupVideo.join($("#group").val());
+        		$("#groupJoinT").click(function(){
+            		GroupVideo.join($("#groupV").val());
             	});
-            	$("#loadVideo").click(function(){
-            		GroupVideo.join($("#videoL").val());
+            	$("#loadVideoT").click(function(){
+            		GroupVideo.load($("#videoV").val());
             	});
-            	$("#userSet").click(function(){
-            		GroupVideo.name = $("#user").val();
+            	$("#userSetT").click(function(){
+            		GroupVideo.name = $("#userV").val();
             		GroupVideo.userSet();
             	});
         	});
@@ -48,11 +48,11 @@
             <h2>Synload Group Video Example</h2>
         	<video id="vtest" width="800" height="450" poster="http://img22.imageshack.us/img22/8756/1920x1080w.jpg" controls="controls"></video><br/>
             <br/>
-            1. Username <input type="text" id="user"> <input type="button" id="userSet" value="Username"><br/>
+            1. Username <input type="text" id="userV"> <input type="button" id="userSetT" value="Username" /><br/>
             <br/>
-            2. Group <input type="text" id="group"> <input type="button" id="groupJoin" value="Join Group"><br/>
+            2. Group <input type="text" id="groupV"> <input type="button" id="groupJoinT" value="Join Group" /><br/>
             <br/>
-            3. Load ( only works if owner ) <input type="text" id="videoL"> <input type="button" id="loadVideo" value="Load Video">
+            3. Load ( only works if owner ) <input type="text" id="videoV"> <input type="button" id="loadVideoT" value="Load Video" />
         </center>
     </body>
 </html>
