@@ -9,12 +9,21 @@ var GroupVideo = {
     // Start of callback functions
     messageSent: function(name,message){},
     sessionAccepted: function(){},
+    connected: function(){},
+    loadVideo: function(video){
+        GroupVideo.finalLoadVideo(video['title']);
+    },
+    userName: function(){},
     userAccepted: function(){},
     userDenied: function(){},
     groupsRecieved: function(groups){},
     newOwner: function(name,cowner){},
     // End of callback functions
-
+    
+    finalLoadVideo: function(video){
+    	document.getElementById(GroupVideo.videoID).src=video;
+        document.getElementById(GroupVideo.videoID).play();
+    },
     sendMessage: function(text){
         GroupVideo.sock.send($.toJSON({"action":"message","text":text}));
     },
@@ -44,10 +53,10 @@ var GroupVideo = {
         GroupVideo.videoID = videoID;
         GroupVideo.sock = new WebSocket('ws://'+server+'/');
         GroupVideo.sock.onopen = function () {
-            
+            GroupVideo.connected();
         };
         GroupVideo.sock.onmessage = function (event) {
-            AnimeCap.process(jQuery.parseJSON(event.data));
+            GroupVideo.process(jQuery.parseJSON(event.data));
         };
         document.getElementById(GroupVideo.videoID).addEventListener("timeupdate", function () {
             curr_time = document.getElementById(GroupVideo.videoID).currentTime;
@@ -71,7 +80,7 @@ var GroupVideo = {
                 GroupVideo.messageSent( json['name'], json['text'] );
             break;
             case "user_nick":
-                GroupVideo.userSet();
+            	GroupVideo.userName();
             break;
             case "user_accepted":
                 GroupVideo.userAccepted();
@@ -105,16 +114,11 @@ var GroupVideo = {
                 GroupVideo.sock.send($.toJSON({"action":"return_pulse","time":document.getElementById(GroupVideo.videoID).currentTime}));
             break;
             case "load":
-                var video = json['movie_url'];
-                if(video!=null){
-                    var videoAr = video.split("&");
-                    document.getElementById(GroupVideo.videoID).src=videoAr[0];
-                    document.getElementById(GroupVideo.videoID).play();
-                }
+                GroupVideo.loadVideo(json);
             break;
             case "group_list":
                 GroupVideo.groups = json['groups'];
-                GroupVideo.groupsRecieve(json['groups']);
+                GroupVideo.groupsRecieved(json['groups']);
             break;
             case "accept":
                 GroupVideo.sessionAccepted();

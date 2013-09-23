@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Synload Group Video Example</title>
+        <script src="http://code.jquery.com/jquery-2.0.3.min.js" type="text/javascript"></script>
+        <script src="https://jquery-json.googlecode.com/files/jquery.json-2.4.min.js" type="text/javascript"></script>
+        <script src="js/system.js" type="text/javascript"></script>
+        <script type="text/javascript">
+        	$("document").ready(function(){
+        		GroupVideo.init("video.synload.com:5200","vtest","test");
+        		GroupVideo.userName = function (){
+        			
+        		}
+        		GroupVideo.loadVideo = function(video){
+        			$.post("youtube.php?yt="+video['title'],{},function(data){
+        				$.each(data, function( index, dat ) {
+        					if (dat['quality'].match(/hd1080/)) {
+        						GroupVideo.finalLoadVideo(dat['url']);
+        						return;
+        					}
+        				});
+        				$.each(data, function( index, dat ) {
+        					if (dat['quality'].match(/mp4/)) {
+        						GroupVideo.finalLoadVideo(dat['url']);
+        						return;
+        					}
+        				});
+        			},"json");
+        		}
+        		GroupVideo.userAccepted = function(){
+        			alert("logged in!");
+        		}
+        		$("#groupJoin").click(function(){
+            		GroupVideo.join($("#group").val());
+            	});
+            	$("#loadVideo").click(function(){
+            		GroupVideo.join($("#videoL").val());
+            	});
+            	$("#userSet").click(function(){
+            		GroupVideo.name = $("#user").val();
+            		GroupVideo.userSet();
+            	});
+        	});
+        </script>
+    </head>
+    <body>
+        <center>
+            <h2>Synload Group Video Example</h2>
+        	<video id="vtest" width="800" height="450" poster="http://img22.imageshack.us/img22/8756/1920x1080w.jpg" controls="controls"></video><br/>
+            <br/>
+            1. Username <input type="text" id="user"> <input type="button" id="userSet" value="Username"><br/>
+            <br/>
+            2. Group <input type="text" id="group"> <input type="button" id="groupJoin" value="Join Group"><br/>
+            <br/>
+            3. Load ( only works if owner ) <input type="text" id="videoL"> <input type="button" id="loadVideo" value="Load Video">
+        </center>
+    </body>
+</html>
