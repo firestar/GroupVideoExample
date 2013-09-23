@@ -11,7 +11,7 @@ var GroupVideo = {
     sessionAccepted: function(){},
     connected: function(){},
     loadVideo: function(video){
-        GroupVideo.finalLoadVideo(video['title']);
+        GroupVideo.finalLoadVideo(video['movie_url']);
     },
     userName: function(){},
     userAccepted: function(){},

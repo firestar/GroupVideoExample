@@ -7,20 +7,20 @@
         <script src="js/system.js" type="text/javascript"></script>
         <script type="text/javascript">
         	$("document").ready(function(){
-        		GroupVideo.init("example.com:5200","vtest","test");
+        		GroupVideo.init("video.synload.com:5200","vtest","test");
         		GroupVideo.userName = function (){
         			
         		}
         		GroupVideo.loadVideo = function(video){
-        			$.post("youtube.php?yt="+video['title'],{},function(data){
-        				$.each(data, function( index, dat ) {
+        			$.post("youtube.php?yt="+video['movie_url'],{},function(data){
+        				/*$.each(data, function( index, dat ) {
         					if (dat['quality'].match(/hd1080/)) {
         						GroupVideo.finalLoadVideo(dat['url']);
         						return;
         					}
-        				});
+        				});*/
         				$.each(data, function( index, dat ) {
-        					if (dat['quality'].match(/mp4/)) {
+        					if (dat['type'].match(/mp4/)) {
         						GroupVideo.finalLoadVideo(dat['url']);
         						return;
         					}
@@ -34,7 +34,7 @@
             		GroupVideo.join($("#groupV").val());
             	});
             	$("#loadVideoT").click(function(){
-            		GroupVideo.load($("#videoV").val());
+            		GroupVideo.load($("#videoV").val(),"");
             	});
             	$("#userSetT").click(function(){
             		GroupVideo.name = $("#userV").val();
