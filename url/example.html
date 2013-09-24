@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Synload Group Video Example</title>
+        <script src="http://code.jquery.com/jquery-2.0.3.min.js" type="text/javascript"></script>
+        <script src="https://jquery-json.googlecode.com/files/jquery.json-2.4.min.js" type="text/javascript"></script>
+        <script src="js/groupvideo.js" type="text/javascript"></script>
+        <script type="text/javascript">
+        	$("document").ready(function(){
+        		GroupVideo.init("example.com:5200","vtest","test");
+        		GroupVideo.userName = function (){
+        			
+        		}
+        		GroupVideo.userAccepted = function(){
+        			alert("logged in!");
+        		}
+        		$("#groupJoinT").click(function(){
+            		GroupVideo.join($("#groupV").val());
+            	});
+            	$("#loadVideoT").click(function(){
+            		GroupVideo.load($("#videoV").val(),"");
+            	});
+            	$("#userSetT").click(function(){
+            		GroupVideo.name = $("#userV").val();
+            		GroupVideo.userSet();
+            	});
+        	});
+        </script>
+    </head>
+    <body>
+        <center>
+            <h2>Synload Group Video Example</h2>
+        	<video id="vtest" width="800" height="450" poster="http://img22.imageshack.us/img22/8756/1920x1080w.jpg" controls="controls"></video><br/>
+            <br/>
+            1. Username <input type="text" id="userV"> <input type="button" id="userSetT" value="Username" /><br/>
+            <br/>
+            2. Group <input type="text" id="groupV"> <input type="button" id="groupJoinT" value="Join Group" /><br/>
+            <br/>
+            3. Load URL ( only works if owner ) <input type="text" id="videoV"> <input type="button" id="loadVideoT" value="Load Video" />
+        </center>
+    </body>
+</html>
